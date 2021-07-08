@@ -2,10 +2,23 @@ const express = require('express');
 const app = express();
 const { Op } = require('sequelize');
 
-const Lancamentos = require('./models/Lancamentos');
+const cors = require('cors');
 
-//informando o formanto de dados que iremos receber
+const Lancamentos = require('./models/Lancamentos');
+const { addHook } = require('./models/Lancamentos');
+
+
 app.use(express.json())
+
+app.use((req, res, next)=>{
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET',  PUT,  POST, DELETE" );
+    res.header("Access-Control-Request-Headers", "X-PINGOTHER, Content-type, Authorization")
+    app.use(cors());
+    next();
+})
+
+
 
 app.get('/listar/:mes/:ano', async (req, res)=>{
     //forço a convenção da STRING para um tipo INTEIRO
@@ -79,6 +92,6 @@ app.post('/cadastrar', async (req, res)=>{
     })
 })
 
-app.listen(8080, function(){
+app.listen(8080, '0.0.0.0', function(){
     console.log("Servidor iniciado na porta 8080: http://localhost:8080");
 })

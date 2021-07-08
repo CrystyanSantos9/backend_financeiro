@@ -42,3 +42,5 @@ Sequelize é uma biblioteca javascript que facilita o gerenciamento de um banco 
 Instalar o drive do banco de dados 
 ### npm install --save mysql2 
 
+Permitir acesso à API
+### npm install --save cors
